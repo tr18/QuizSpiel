@@ -44,8 +44,7 @@ public enum Fragen {
     Frage31("Frage 31", "Richtig", "Falsch 1", "Falsch 2", "Falsch 3"),
     Frage32("Frage 32", "Richtig", "Falsch 1", "Falsch 2", "Falsch 3"),
     Frage33("Frage 33", "Richtig", "Falsch 1", "Falsch 2", "Falsch 3"),
-    Frage34("Frage 34", "Richtig", "Falsch 1", "Falsch 2", "Falsch 3"),
-    Frage35("Frage 35", "Richtig", "Falsch 1", "Falsch 2", "Falsch 3");
+    Frage34("Frage 34", "Richtig", "Falsch 1", "Falsch 2", "Falsch 3");
     
     
     private final String frage;
