@@ -6,7 +6,6 @@
 package quizspiel;
 
 import java.awt.Color;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,7 +20,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 /**
  *
@@ -46,8 +44,6 @@ public class QuizSpielGui extends javax.swing.JFrame {
     public QuizSpielGui() {
         initComponents();
 
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
         weiterButton.setEnabled(false);
         beendenButton.setEnabled(false);
 
@@ -66,10 +62,8 @@ public class QuizSpielGui extends javax.swing.JFrame {
                 Logger.getLogger(QuizSpielGui.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        if (gespielteFragen.size() == Fragen.values().length) {
-            gespielteFragen.clear();
-        }
+        
+        
         for (Fragen f : Fragen.values()) {
             Frage frage = new Frage(f.getFrage(), f.getRichtigeAntwort(), f.getFalscheAntwort1(),
                     f.getFalscheAntwort2(), f.getFalscheAntwort3());
@@ -79,6 +73,15 @@ public class QuizSpielGui extends javax.swing.JFrame {
         }
 
         System.out.println(offeneFragen.size());
+
+        if (offeneFragen.isEmpty()) {
+            for (Fragen f : Fragen.values()) {
+                Frage frage = new Frage(f.getFrage(), f.getRichtigeAntwort(), f.getFalscheAntwort1(),
+                        f.getFalscheAntwort2(), f.getFalscheAntwort3());
+                offeneFragen.add(frage);
+            }
+            gespielteFragen.clear();
+        }
 
         neueFragenAnzeigen();
     }
@@ -105,7 +108,8 @@ public class QuizSpielGui extends javax.swing.JFrame {
         weiterButton = new javax.swing.JButton();
         beendenButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Quiz-Spiel");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -356,7 +360,6 @@ public class QuizSpielGui extends javax.swing.JFrame {
     private void neueFragenAnzeigen() {
         Frage frage = offeneFragen.get(new Random().nextInt(offeneFragen.size()));
         frageTextArea.setText(frage.getFrage());
-        System.out.println(frage.getFrage());
         int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
         switch (randomNum) {
             case 1:
@@ -390,6 +393,7 @@ public class QuizSpielGui extends javax.swing.JFrame {
             default:
                 break;
         }
+        feedbackTextfield.setText("");
         offeneFragen.remove(frage);
         gespielteFragen.add(frage);
     }

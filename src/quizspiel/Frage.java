@@ -6,6 +6,7 @@
 package quizspiel;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *
@@ -63,8 +64,12 @@ public class Frage implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + this.counter;
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.frage);
+        hash = 37 * hash + Objects.hashCode(this.richtigeAntwort);
+        hash = 37 * hash + Objects.hashCode(this.falscheAntwort1);
+        hash = 37 * hash + Objects.hashCode(this.falscheAntwort2);
+        hash = 37 * hash + Objects.hashCode(this.falscheAntwort3);
         return hash;
     }
 
@@ -80,7 +85,19 @@ public class Frage implements Serializable {
             return false;
         }
         final Frage other = (Frage) obj;
-        if (this.counter != other.counter) {
+        if (!Objects.equals(this.frage, other.frage)) {
+            return false;
+        }
+        if (!Objects.equals(this.richtigeAntwort, other.richtigeAntwort)) {
+            return false;
+        }
+        if (!Objects.equals(this.falscheAntwort1, other.falscheAntwort1)) {
+            return false;
+        }
+        if (!Objects.equals(this.falscheAntwort2, other.falscheAntwort2)) {
+            return false;
+        }
+        if (!Objects.equals(this.falscheAntwort3, other.falscheAntwort3)) {
             return false;
         }
         return true;
